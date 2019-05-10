@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/MainApp.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/controllers/ControleDeLayoutBase.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/view/DarkTheme.css</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/view/VisualizarPessoa.fxml</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/util/ValidaPessoa.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/date/FormataData.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/view/EditarPessoa.fxml</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/date/ValidaData.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/controllers/ControleDeVizualizarPessoa.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/date/AdaptadorDataLocal.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/view/LayoutBase.fxml</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/path/CaminhoArquivo.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/path/ManipulaDadosArquivo.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/controllers/ControleDeEditarPessoa.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/util/AniversariosPorMes.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/view/EstatisticasDeAniversarios.fxml</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/controllers/ControleDeEstatisticasDeAniversarios.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/model/PessoaOrganizadorLista.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/model/Pessoa.java</file>
+            <file>file:/C:/Users/Savio/Desktop/AddressApp/AddressApp/src/ch/makery/address/util/ShowDialogs.java</file>
+        </group>
+    </open-files>
+</project-private>
