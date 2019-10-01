@@ -1,133 +1,136 @@
 package ch.makery.address;
 
+import ch.makery.address.model.*;
+import ch.makery.address.controllers.*;
+import ch.makery.address.model.file.DataFile;
+import java.io.File;
 import java.io.IOException;
-
-import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import ch.makery.address.model.*;
-import ch.makery.address.controllers.*;
-import ch.makery.address.path.CaminhoArquivo;
-import ch.makery.address.path.ManipulaDadosArquivo;
-import java.io.File;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-public class MainApp extends Application {
 
-    private Stage palcoPrimario;
-    private BorderPane layoutBase;
-    private CaminhoArquivo caminhoArquivo;
-    private ManipulaDadosArquivo manipuladorDados;
+/**
+ * Classe MainApp.
+ * Tem como responsabilidade iniciar a aplicação.
+ *
+ * @author Sávio Cardoso, Marco Jakob
+ * @version 2.0
+ */
+
+public class MainApp{
+
+    Stage primaryStage;
+    private BorderPane rootLayout;
+    private DataFile dataFile;
+    private static MainApp instance = null; 
+    
+    public static MainApp getInstance(){
+        if(MainApp.instance == null){
+            MainApp.instance = new MainApp();
+        }
+       return MainApp.instance;
+    }
     
     /**
-     * Os dados como uma observable list de Pessoas.
+     * Os dados como uma observable list de Persons.
      */
-    private ObservableList<Pessoa> dadosPessoa = FXCollections.observableArrayList();
+    private ObservableList<Person> personData = FXCollections.observableArrayList();
+
+    /**
+     * Construtor
+     */
+    private MainApp() {
+        // Add some sample data
+        personData.add(new Person("Hans", "Muster"));
+        personData.add(new Person("Ruth", "Mueller"));
+        personData.add(new Person("Heinz", "Kurz"));
+        personData.add(new Person("Cornelia", "Meier"));
+        personData.add(new Person("Werner", "Meyer"));
+        personData.add(new Person("Lydia", "Kunz"));
+        personData.add(new Person("Anna", "Best"));
+        personData.add(new Person("Stefan", "Meier"));
+        personData.add(new Person("Martin", "Mueller"));
+    }
     
     /**
-     * Retorna os dados como uma observable list de Pessoas. 
+     * Retorna os dados como uma observable list de Persons. 
      * @return
      */
-    public MainApp(){
-        dadosPessoa.add(new Pessoa("Diego", "Demetrio"));
-        dadosPessoa.add(new Pessoa("Savio", "Cardoso"));
-        dadosPessoa.add(new Pessoa("Heitor", "INF2"));
-        dadosPessoa.add(new Pessoa("Cristiano", "Maffort"));
-        dadosPessoa.add(new Pessoa("Wilian", "Sallum"));
+    public ObservableList<Person> getPersonData() {
+        return personData;
     }
-    
-    public ObservableList<Pessoa> getDadosPessoa() {
-        return dadosPessoa;
-    }
-    
-    @Override
-    public void start(Stage palcoPrimario) {
-        this.palcoPrimario = palcoPrimario;
-        this.palcoPrimario.setTitle("AddressApp");
-        
-        // Set the application icon.
-        this.palcoPrimario.getIcons().add(new
-                Image("file:resources/images/address_book_32.png"));
-        
-        caminhoArquivo = new CaminhoArquivo(palcoPrimario);
-        manipuladorDados = new ManipulaDadosArquivo(caminhoArquivo, dadosPessoa);
-        
-        initLayoutBase();
 
-        showVisualizarPessoa();
-    }
-    
-    /**
-    * Inicializa o root layout e tenta carregar o último file
-    * de pessoa aberto.
-    */
-    public void initLayoutBase() {
+    /*
+     * Inicializa o root layout e tenta carregar o último arquivo
+     * de pessoa aberto.
+     */
+    public void initRootLayout() {
         try {
-            // Carrega o root layout do file fxml.
+            // Carrega o root layout do arquivo fxml.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class
-                    .getResource("view/LayoutBase.fxml"));
-            layoutBase = (BorderPane) loader.load();
+                    .getResource("view/RootLayout.fxml"));
+            rootLayout = (BorderPane) loader.load();
 
             // Mostra a scene (cena) contendo o root layout.
-            Scene scene = new Scene(layoutBase);
-            palcoPrimario.setScene(scene);
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
 
             // Dá ao controller o acesso ao main app.
-            ControleDeLayoutBase controle = loader.getController();
-            controle.setMainApp(this);
-            controle.setCaminhoArquivo(caminhoArquivo);
-            controle.setManipulaDadosArquivo(manipuladorDados);
-            controle.setShowDialogs(palcoPrimario,  dadosPessoa);
+            RootLayoutController controller = loader.getController();
 
-            palcoPrimario.show();
+
+            primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Tenta carregar o último file de pessoa aberto.
-        File file = caminhoArquivo.getCaminhoArquivoPessoa();
+        // Tenta carregar o último arquivo de pessoa aberto.
+        dataFile = new DataFile();
+        File file = dataFile.getFilePath().getFilePath();
         if (file != null) {
-            manipuladorDados.carregaDadosPessoaDoArquivo(file);
+            dataFile.loadPersonDataFromFile(file);
         }
-        
     }
-    
-    /**
-     * Mostra a pessoa overview dentro do root layout.
-     */
-    public void showVisualizarPessoa() {
-        try {
-            // Carrega a pessoa overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/VisualizarPessoa.fxml"));
-            AnchorPane visaoPessoa = (AnchorPane) loader.load();
 
-            // Define a pessoa overview no centro do root layout.
-            layoutBase.setCenter(visaoPessoa);
+    /**
+     * Mostra o person overview dentro do root layout.
+     */
+    public void showPersonOverview() {
+        try {
+            // Carrega a person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Define a person overview no centro do root layout.
+            rootLayout.setCenter(personOverview);
 
             // Dá ao controlador acesso à the main app.
-            ControleDeVizualizarPessoa controller = loader.getController();
-            controller.setMainApp(this);
+            PersonOverviewController controller = loader.getController();
+            controller.setItemsOnTable();
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+    }
+}
+    /**
+     * Retorna os dados da pessoa.
+     * @return
+     */
+    public DataFile getPersonDataFile(){
+       return dataFile;
     }
     
     /**
      * Retorna o palco principal.
      * @return
      */
-    public Stage getPalcoPrimario() {
-        return palcoPrimario;
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 }
